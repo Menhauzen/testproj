@@ -7,17 +7,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-//Этот класс сортирует и считает статистику
+//Этот класс сортирует
 public class Sorter {
     private String filePath;
-    private double doubleAverage;
-    private long longAverage;
-    private long min;
-    private long max;
-    private int countDigits;
-    private int countStringLines;
-    private int minLineLength;
-    private int maxLineLength;
     private List<Double> doubles = new ArrayList<>();
     private List<Long> longs = new ArrayList<>();
     private List<String> strings = new ArrayList<>();
@@ -28,9 +20,7 @@ public class Sorter {
                 while ((line = reader.readLine()) != null){
                     if(isLong(line)){
                         longs.add(Long.parseLong(line));
-                        System.out.println(line);
                     }else if(isFloat(line)){
-                        System.out.println(line);
                         doubles.add(Double.parseDouble(line));
                     }else {
                         strings.add(line);
@@ -63,9 +53,6 @@ public class Sorter {
             }
         }else return false;
     }
-    public String fullStatistic(){
-        return null;
-    }
 
     public List<Double> getDoubles() {
         return doubles;
@@ -92,18 +79,6 @@ public class Sorter {
             String resultStrings = String.join(", ", getStrings());
             System.out.println("String results: " + resultStrings);
         }
-    }
-
-    public static void main(String[] args) {
-        Sorter sorter = new Sorter();
-        sorter.readFile("src/main/resources/filesForTest/in2.txt");
-        System.out.println();
-        String resultDoubles = sorter.getDoubles().stream().map(String::valueOf).collect(Collectors.joining(", "));
-        System.out.println("Float results: " + resultDoubles);
-        String resultIntegers = sorter.getLongs().stream().map(String::valueOf).collect(Collectors.joining(", "));
-        System.out.println("Long results: " + resultIntegers);
-        String resultStrings = sorter.getStrings().stream().collect(Collectors.joining(", "));
-        System.out.println("String results: " + resultStrings);
     }
 
 }
