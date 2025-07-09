@@ -37,7 +37,7 @@ public class Main {
                    sorter.readFile(args[i]);
                    sorterList.add(sorter);
                 }
-                if(args[i].startsWith("-") && args[i].length() == 2){
+                if(args[i].startsWith("-") && args[i].length() == 2 && (!sorterList.isEmpty())){
                     switch (args[i]){
                         case newFileOutput:
                             if(!commandOWasCalled) {
@@ -98,7 +98,11 @@ public class Main {
                     }
                 }
             }
-            writeToFile(commandOWasCalled,commandPWasCalled,commandRewriteWasCalled,newPathToOutput,prefix,sorterList,commandShortStatistic,commandFullStatistic);
+            if(!sorterList.isEmpty()) {
+                writeToFile(commandOWasCalled, commandPWasCalled, commandRewriteWasCalled, newPathToOutput, prefix, sorterList, commandShortStatistic, commandFullStatistic);
+            }else {
+                System.out.println("Файлы для сортировки отстуствуют");
+            }
         }
 
 
@@ -107,7 +111,7 @@ public class Main {
         return prefix.matches(".*[\\\\/:*?\"<>|].*");
     }
     public static void  writeToFile(boolean commandOWasCalled, boolean commandPWasCalled,boolean commandReWrite ,String newPathToOutput,String prefix,List<Sorter> sorterList,boolean commandShortStatistic, boolean commandFullStatistic){
-        String outputDirectory = System.getProperty("src/main/resources/filesForTest");
+        String outputDirectory = System.getProperty("user.dir");
         String prefixToWrite = "";
         List<Double> mainDoubles = new ArrayList<>();
         List<String> mainStrings = new ArrayList<>();
